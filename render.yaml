@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: matchmind26
+    runtime: python
+    plan: free
+    buildCommand: >-
+      pip install -e ".[app]" &&
+      python -m wc26_predictor.models.train
+      --matches data/raw/international_results.csv
+      --squads data/sample/squads.csv
+      --qualified-teams data/sample/qualified_teams.csv
+      --model-out artifacts/model.joblib
+    startCommand: uvicorn wc26_predictor.api.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.11
