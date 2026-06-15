@@ -1,0 +1,193 @@
+team,player,position,birthday,caps,club strength,attacking_value,defensive_value
+United States,Christian Pulisic,FW,9/18/98,76,84,88,52
+United States,Weston McKennie,MF,8/28/98,61,82,74,76
+United States,Tyler Adams,MF,2/14/99,42,78,55,84
+United States,Antonee Robinson,DF,8/8/97,49,80,58,82
+Canada,Alphonso Davies,DF,11/2/00,58,87,79,84
+Canada,Jonathan David,FW,1/14/00,59,83,88,51
+Canada,Stephen Eustaquio,MF,12/21/96,46,77,70,77
+Canada,Tajon Buchanan,FW,2/8/99,44,79,80,58
+Mexico,Santiago Gimenez,FW,4/18/01,32,83,87,48
+Mexico,Hirving Lozano,FW,7/30/95,70,78,84,51
+Mexico,Edson Alvarez,MF,10/24/97,86,82,61,86
+Mexico,Luis Chavez,MF,1/15/96,39,75,72,74
+Argentina,Lionel Messi,FW,6/24/87,188,88,96,40
+Argentina,Lautaro Martinez,FW,8/22/97,67,88,89,55
+Argentina,Enzo Fernandez,MF,1/17/01,36,84,74,79
+Argentina,Cristian Romero,DF,4/27/98,39,86,42,88
+Brazil,Vinicius Junior,FW,7/12/00,39,95,94,54
+Brazil,Rodrygo,FW,1/9/01,35,91,89,56
+Brazil,Bruno Guimaraes,MF,11/16/97,32,87,76,82
+Brazil,Marquinhos,DF,5/14/94,89,88,42,89
+Colombia,Luis Diaz,FW,1/13/97,58,87,89,56
+Colombia,James Rodriguez,MF,7/12/91,108,80,85,55
+Colombia,Jefferson Lerma,MF,10/25/94,42,80,63,82
+Colombia,Davinson Sanchez,DF,6/12/96,62,81,40,83
+Ecuador,Moises Caicedo,MF,11/2/01,52,89,72,88
+Ecuador,Piero Hincapie,DF,1/9/02,40,84,50,85
+Ecuador,Pervis Estupinan,DF,1/21/98,45,82,68,81
+Ecuador,Willian Pacho,DF,10/16/01,22,85,42,86
+Paraguay,Miguel Almiron,MF,2/10/94,62,78,80,60
+Paraguay,Julio Enciso,FW,1/23/04,21,80,83,52
+Paraguay,Gustavo Gomez,DF,5/6/93,78,76,43,83
+Paraguay,Fabian Balbuena,DF,8/23/91,40,74,38,80
+Uruguay,Federico Valverde,MF,7/22/98,63,93,84,86
+Uruguay,Darwin Nunez,FW,6/24/99,33,86,88,55
+Uruguay,Ronald Araujo,DF,3/7/99,20,89,48,89
+Uruguay,Rodrigo Bentancur,MF,6/25/97,64,84,75,80
+England,Harry Kane,FW,7/28/93,98,90,93,48
+England,Jude Bellingham,MF,6/29/03,41,94,88,80
+England,Bukayo Saka,FW,9/5/01,42,91,90,62
+England,Declan Rice,MF,1/14/99,62,90,67,88
+France,Kylian Mbappe,FW,12/20/98,84,95,97,50
+France,Antoine Griezmann,MF,3/21/91,137,87,86,70
+France,Aurelien Tchouameni,MF,1/27/00,40,91,67,87
+France,William Saliba,DF,3/24/01,20,91,45,90
+Spain,Alvaro Morata,FW,10/23/92,80,84,85,45
+Spain,Pedri,MF,11/25/02,28,88,82,72
+Spain,Rodri,MF,6/22/96,57,94,77,92
+Spain,Dani Carvajal,DF,1/11/92,50,88,60,86
+Germany,Jamal Musiala,MF,2/26/03,36,91,89,66
+Germany,Ilkay Gundogan,MF,10/24/90,82,86,79,74
+Germany,Kai Havertz,FW,6/11/99,91,86,83,62
+Germany,Antonio Rudiger,DF,3/3/93,74,90,45,89
+Belgium,Kevin De Bruyne,MF,6/28/91,105,91,92,70
+Belgium,Romelu Lukaku,FW,5/13/93,120,84,90,47
+Belgium,Jeremy Doku,FW,5/27/02,30,88,87,57
+Belgium,Amadou Onana,MF,8/16/01,19,82,62,84
+Netherlands,Virgil van Dijk,DF,7/8/91,75,89,47,92
+Netherlands,Frenkie de Jong,MF,5/12/97,59,89,83,79
+Netherlands,Cody Gakpo,FW,5/7/99,32,84,86,56
+Netherlands,Xavi Simons,MF,4/21/03,22,85,82,58
+Portugal,Cristiano Ronaldo,FW,2/5/85,206,84,90,38
+Portugal,Bruno Fernandes,MF,9/8/94,74,88,88,70
+Portugal,Bernardo Silva,MF,8/10/94,94,89,86,72
+Portugal,Ruben Dias,DF,5/14/97,60,90,44,91
+Croatia,Luka Modric,MF,9/9/85,180,84,82,70
+Croatia,Mateo Kovacic,MF,5/6/94,106,86,76,78
+Croatia,Josko Gvardiol,DF,1/23/02,34,89,66,88
+Croatia,Andrej Kramaric,FW,6/19/91,98,80,84,50
+Switzerland,Granit Xhaka,MF,9/27/92,130,86,76,84
+Switzerland,Manuel Akanji,DF,7/19/95,64,86,46,87
+Switzerland,Breel Embolo,FW,2/14/97,68,80,82,52
+Switzerland,Xherdan Shaqiri,MF,10/10/91,124,76,80,55
+Austria,David Alaba,DF,6/24/92,105,86,70,87
+Austria,Marcel Sabitzer,MF,3/17/94,82,84,80,75
+Austria,Marko Arnautovic,FW,4/19/89,115,78,82,45
+Austria,Konrad Laimer,MF,5/27/97,40,84,68,84
+Norway,Erling Haaland,FW,7/21/00,35,94,96,48
+Norway,Martin Odegaard,MF,12/17/98,60,91,88,72
+Norway,Alexander Sorloth,FW,12/5/95,55,83,86,50
+Norway,Sander Berge,MF,2/14/98,48,80,66,78
+Scotland,Scott McTominay,MF,12/8/96,52,82,80,76
+Scotland,Andrew Robertson,DF,3/11/94,74,84,66,84
+Scotland,John McGinn,MF,10/18/94,70,80,78,74
+Scotland,Kieran Tierney,DF,6/5/97,47,79,58,82
+Sweden,Alexander Isak,FW,9/21/99,50,88,90,50
+Sweden,Viktor Gyokeres,FW,6/4/98,30,86,89,55
+Sweden,Dejan Kulusevski,FW,4/25/00,45,84,85,62
+Sweden,Victor Lindelof,DF,7/17/94,68,80,42,82
+Czechia,Tomas Soucek,MF,2/27/95,76,81,74,84
+Czechia,Patrik Schick,FW,1/24/96,40,83,86,45
+Czechia,Adam Hlozek,FW,7/25/02,34,80,82,50
+Czechia,David Zima,DF,11/8/00,24,76,38,80
+Turkiye,Hakan Calhanoglu,MF,2/8/94,90,88,86,76
+Turkiye,Arda Guler,MF,2/25/05,18,86,86,58
+Turkiye,Kenan Yildiz,FW,5/4/05,20,84,85,52
+Turkiye,Merih Demiral,DF,3/5/98,48,78,42,82
+Bosnia and Herzegovina,Edin Dzeko,FW,3/17/86,138,78,84,42
+Bosnia and Herzegovina,Sead Kolasinac,DF,6/20/93,60,80,58,83
+Bosnia and Herzegovina,Rade Krunic,MF,10/7/93,35,76,70,72
+Bosnia and Herzegovina,Amar Dedic,DF,8/18/02,18,78,62,78
+Japan,Takefusa Kubo,MF,6/4/01,43,84,86,60
+Japan,Kaoru Mitoma,FW,5/20/97,29,83,85,58
+Japan,Wataru Endo,MF,2/9/93,68,82,62,85
+Japan,Ko Itakura,DF,1/27/97,35,78,45,82
+South Korea,Son Heung-min,FW,7/8/92,127,88,91,54
+South Korea,Kim Min-jae,DF,11/15/96,65,89,42,90
+South Korea,Hwang Hee-chan,FW,1/26/96,66,81,82,56
+South Korea,Lee Jae-sung,MF,8/10/92,90,76,70,72
+Australia,Mathew Ryan,GK,4/8/92,95,76,10,84
+Australia,Harry Souttar,DF,10/22/98,35,76,40,82
+Australia,Jackson Irvine,MF,3/7/93,70,75,70,78
+Australia,Craig Goodwin,FW,12/16/91,30,72,76,48
+IR Iran,Mehdi Taremi,FW,7/18/92,85,82,86,47
+IR Iran,Sardar Azmoun,FW,1/1/95,83,80,84,46
+IR Iran,Saeid Ezatolahi,MF,10/1/96,65,72,58,76
+IR Iran,Majid Hosseini,DF,6/20/96,35,70,39,76
+Iraq,Ali Al-Hamadi,FW,3/1/02,18,72,78,48
+Iraq,Aymen Hussein,FW,3/22/96,78,73,80,50
+Iraq,Zidane Iqbal,MF,4/27/03,20,72,74,68
+Iraq,Rebin Sulaka,DF,4/12/92,35,70,38,76
+Jordan,Mousa Al-Taamari,FW,6/10/97,70,77,82,52
+Jordan,Yazan Al-Naimat,FW,6/4/99,45,73,79,46
+Jordan,Nizar Al-Rashdan,MF,3/23/99,35,70,66,72
+Jordan,Yazan Al-Arab,DF,1/31/96,55,69,38,74
+Qatar,Akram Afif,FW,11/18/96,115,79,85,50
+Qatar,Almoez Ali,FW,8/19/96,105,77,83,48
+Qatar,Hassan Al-Haydos,MF,12/11/90,180,74,76,60
+Qatar,Boualem Khoukhi,DF,7/9/90,110,72,45,75
+Saudi Arabia,Salem Al-Dawsari,FW,8/19/91,95,72,81,51
+Saudi Arabia,Firas Al-Buraikan,FW,5/14/00,45,69,76,48
+Saudi Arabia,Mohamed Kanno,MF,9/22/94,62,70,63,75
+Saudi Arabia,Ali Al-Bulaihi,DF,11/21/89,60,68,38,76
+Uzbekistan,Eldor Shomurodov,FW,6/29/95,75,76,82,46
+Uzbekistan,Abbosbek Fayzullaev,MF,10/3/03,28,78,82,58
+Uzbekistan,Otabek Shukurov,MF,6/22/96,65,72,64,76
+Uzbekistan,Abdukodir Khusanov,DF,2/29/04,20,82,40,84
+Morocco,Achraf Hakimi,DF,11/4/98,84,88,74,86
+Morocco,Hakim Ziyech,FW,3/19/93,65,78,84,50
+Morocco,Sofyan Amrabat,MF,8/21/96,62,80,61,83
+Morocco,Youssef En-Nesyri,FW,6/1/97,78,80,84,56
+Tunisia,Ellyes Skhiri,MF,5/10/95,63,78,63,82
+Tunisia,Hannibal Mejbri,MF,1/21/03,32,76,75,66
+Tunisia,Montassar Talbi,DF,5/26/98,45,76,40,80
+Tunisia,Youssef Msakni,FW,10/28/90,100,72,78,44
+Algeria,Riyad Mahrez,FW,2/21/91,95,83,88,48
+Algeria,Ismael Bennacer,MF,12/1/97,50,82,74,78
+Algeria,Ramy Bensebaini,DF,4/16/95,65,80,58,82
+Algeria,Amine Gouiri,FW,2/16/00,20,80,84,50
+Cabo Verde,Ryan Mendes,FW,1/8/90,75,70,76,48
+Cabo Verde,Bebe,FW,7/12/90,25,72,78,46
+Cabo Verde,Logan Costa,DF,4/1/01,20,78,42,80
+Cabo Verde,Patrick Andrade,MF,2/9/93,25,70,64,72
+Cote d'Ivoire,Sebastien Haller,FW,6/22/94,28,82,86,48
+Cote d'Ivoire,Franck Kessie,MF,12/19/96,80,84,78,84
+Cote d'Ivoire,Simon Adingra,FW,1/1/02,20,82,84,55
+Cote d'Ivoire,Evan Ndicka,DF,8/20/99,18,84,42,85
+DR Congo,Yoane Wissa,FW,9/3/96,30,80,84,52
+DR Congo,Cedric Bakambu,FW,4/11/91,55,76,82,45
+DR Congo,Chancel Mbemba,DF,8/8/94,75,80,45,84
+DR Congo,Axel Tuanzebe,DF,11/14/97,8,76,38,80
+Egypt,Mohamed Salah,FW,6/15/92,100,91,94,50
+Egypt,Omar Marmoush,FW,2/7/99,35,86,88,52
+Egypt,Trezeguet,FW,10/1/94,75,76,80,50
+Egypt,Mohamed Elneny,MF,7/11/92,100,74,60,76
+Ghana,Mohammed Kudus,MF,8/2/00,38,84,86,64
+Ghana,Thomas Partey,MF,6/13/93,50,84,72,84
+Ghana,Inaki Williams,FW,6/15/94,20,82,84,50
+Ghana,Alexander Djiku,DF,8/9/94,32,78,42,80
+Senegal,Sadio Mane,FW,4/10/92,105,84,88,52
+Senegal,Nicolas Jackson,FW,6/20/01,20,84,86,54
+Senegal,Kalidou Koulibaly,DF,6/20/91,85,82,42,88
+Senegal,Idrissa Gueye,MF,9/26/89,110,78,60,82
+South Africa,Percy Tau,FW,5/13/94,50,74,80,50
+South Africa,Teboho Mokoena,MF,1/24/97,40,72,70,76
+South Africa,Ronwen Williams,GK,1/21/92,45,72,10,80
+South Africa,Mothobi Mvala,DF,6/14/94,30,70,38,76
+Curacao,Leandro Bacuna,MF,8/21/91,45,72,72,70
+Curacao,Juninho Bacuna,MF,8/7/97,30,73,72,72
+Curacao,Cuco Martina,DF,9/25/89,60,70,40,76
+Curacao,Eloy Room,GK,2/6/89,55,70,10,78
+Haiti,Duckens Nazon,FW,4/7/94,65,72,80,45
+Haiti,Frantzdy Pierrot,FW,3/29/95,35,73,79,48
+Haiti,Jean-Ricner Bellegarde,MF,6/27/98,18,80,76,72
+Haiti,Ricardo Ade,DF,5/21/90,30,68,36,74
+Panama,Anibal Godoy,MF,2/10/90,120,66,58,74
+Panama,Michael Murillo,DF,2/11/96,75,76,58,80
+Panama,Jose Fajardo,FW,8/18/93,45,70,76,45
+Panama,Adalberto Carrasquilla,MF,11/28/98,65,74,74,74
+New Zealand,Chris Wood,FW,12/7/91,80,80,84,50
+New Zealand,Liberato Cacace,DF,9/27/00,35,76,62,78
+New Zealand,Marko Stamenic,MF,2/19/02,25,76,68,76
+New Zealand,Winston Reid,DF,7/3/88,35,70,35,78

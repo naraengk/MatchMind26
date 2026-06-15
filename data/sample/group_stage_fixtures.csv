@@ -1,0 +1,73 @@
+group,date,team_one,team_two,stadium,city
+A,2026-06-11,Mexico,South Africa,Estadio Azteca,Mexico City
+A,2026-06-11,South Korea,Czechia,Estadio Akron,Zapopan
+A,2026-06-18,Czechia,South Africa,Mercedes-Benz Stadium,Atlanta
+A,2026-06-18,Mexico,South Korea,Estadio Akron,Zapopan
+A,2026-06-24,Czechia,Mexico,Estadio Azteca,Mexico City
+A,2026-06-24,South Africa,South Korea,Estadio BBVA,Guadalupe
+B,2026-06-12,Canada,Bosnia and Herzegovina,BMO Field,Toronto
+B,2026-06-13,Qatar,Switzerland,Levi's Stadium,Santa Clara
+B,2026-06-18,Switzerland,Bosnia and Herzegovina,SoFi Stadium,Inglewood
+B,2026-06-18,Canada,Qatar,BC Place,Vancouver
+B,2026-06-24,Switzerland,Canada,BC Place,Vancouver
+B,2026-06-24,Bosnia and Herzegovina,Qatar,Lumen Field,Seattle
+C,2026-06-13,Brazil,Morocco,Gillette Stadium,Foxborough
+C,2026-06-13,Haiti,Scotland,MetLife Stadium,East Rutherford
+C,2026-06-19,Scotland,Morocco,Lincoln Financial Field,Philadelphia
+C,2026-06-19,Brazil,Haiti,Gillette Stadium,Foxborough
+C,2026-06-24,Scotland,Brazil,Hard Rock Stadium,Miami Gardens
+C,2026-06-24,Morocco,Haiti,Mercedes-Benz Stadium,Atlanta
+D,2026-06-12,United States,Paraguay,SoFi Stadium,Inglewood
+D,2026-06-13,Australia,Turkiye,BC Place,Vancouver
+D,2026-06-19,Turkiye,Paraguay,Levi's Stadium,Santa Clara
+D,2026-06-19,United States,Australia,Lumen Field,Seattle
+D,2026-06-25,Turkiye,United States,SoFi Stadium,Inglewood
+D,2026-06-25,Paraguay,Australia,Levi's Stadium,Santa Clara
+E,2026-06-14,Cote d'Ivoire,Ecuador,Lincoln Financial Field,Philadelphia
+E,2026-06-14,Germany,Curacao,NRG Stadium,Houston
+E,2026-06-20,Germany,Cote d'Ivoire,BMO Field,Toronto
+E,2026-06-20,Ecuador,Curacao,Arrowhead Stadium,Kansas City
+E,2026-06-25,Curacao,Cote d'Ivoire,Lincoln Financial Field,Philadelphia
+E,2026-06-25,Ecuador,Germany,MetLife Stadium,East Rutherford
+F,2026-06-14,Netherlands,Japan,AT&T Stadium,Arlington
+F,2026-06-14,Sweden,Tunisia,Estadio BBVA,Guadalupe
+F,2026-06-20,Netherlands,Sweden,NRG Stadium,Houston
+F,2026-06-20,Tunisia,Japan,Estadio BBVA,Guadalupe
+F,2026-06-25,Japan,Sweden,AT&T Stadium,Arlington
+F,2026-06-25,Tunisia,Netherlands,Arrowhead Stadium,Kansas City
+G,2026-06-15,IR Iran,New Zealand,SoFi Stadium,Inglewood
+G,2026-06-15,Belgium,Egypt,Lumen Field,Seattle
+G,2026-06-21,Belgium,IR Iran,SoFi Stadium,Inglewood
+G,2026-06-21,New Zealand,Egypt,BC Place,Vancouver
+G,2026-06-26,Egypt,IR Iran,Lumen Field,Seattle
+G,2026-06-26,New Zealand,Belgium,BC Place,Vancouver
+H,2026-06-15,Saudi Arabia,Uruguay,Hard Rock Stadium,Miami Gardens
+H,2026-06-15,Spain,Cabo Verde,Mercedes-Benz Stadium,Atlanta
+H,2026-06-21,Uruguay,Cabo Verde,Hard Rock Stadium,Miami Gardens
+H,2026-06-21,Spain,Saudi Arabia,Mercedes-Benz Stadium,Atlanta
+H,2026-06-26,Cabo Verde,Saudi Arabia,NRG Stadium,Houston
+H,2026-06-26,Uruguay,Spain,Estadio Akron,Zapopan
+I,2026-06-16,France,Senegal,MetLife Stadium,East Rutherford
+I,2026-06-16,Iraq,Norway,Gillette Stadium,Foxborough
+I,2026-06-22,Norway,Senegal,MetLife Stadium,East Rutherford
+I,2026-06-22,France,Iraq,Lincoln Financial Field,Philadelphia
+I,2026-06-26,Norway,France,Gillette Stadium,Foxborough
+I,2026-06-26,Senegal,Iraq,BMO Field,Toronto
+J,2026-06-16,Argentina,Algeria,Arrowhead Stadium,Kansas City
+J,2026-06-16,Austria,Jordan,Levi's Stadium,Santa Clara
+J,2026-06-22,Argentina,Austria,AT&T Stadium,Arlington
+J,2026-06-22,Jordan,Algeria,Levi's Stadium,Santa Clara
+J,2026-06-27,Algeria,Austria,Arrowhead Stadium,Kansas City
+J,2026-06-27,Jordan,Argentina,AT&T Stadium,Arlington
+K,2026-06-17,Portugal,DR Congo,NRG Stadium,Houston
+K,2026-06-17,Uzbekistan,Colombia,Estadio Azteca,Mexico City
+K,2026-06-23,Portugal,Uzbekistan,NRG Stadium,Houston
+K,2026-06-23,Colombia,DR Congo,Estadio Akron,Zapopan
+K,2026-06-27,Colombia,Portugal,Hard Rock Stadium,Miami Gardens
+K,2026-06-27,DR Congo,Uzbekistan,Mercedes-Benz Stadium,Atlanta
+L,2026-06-17,Ghana,Panama,BMO Field,Toronto
+L,2026-06-17,England,Croatia,AT&T Stadium,Arlington
+L,2026-06-23,England,Ghana,Gillette Stadium,Foxborough
+L,2026-06-23,Panama,Croatia,BMO Field,Toronto
+L,2026-06-27,Panama,England,MetLife Stadium,East Rutherford
+L,2026-06-27,Croatia,Ghana,Lincoln Financial Field,Philadelphia
