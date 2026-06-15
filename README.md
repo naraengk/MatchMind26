@@ -6,7 +6,7 @@ It runs as a small website (built with FastAPI) where you can pick any group-sta
 
 ## Live site
 
-[Open the app](https://matchmind26.onrender.com)
+[MatchMind26](https://matchmind26.onrender.com)
 
 ## What it looks like
 
