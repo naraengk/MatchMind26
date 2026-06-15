@@ -1,6 +1,6 @@
 # WC 2026 Predictor
 
-This is a project I built to predict how the 2026 World Cup might play out. It uses real international results from the last 10 years, current squad info, and a machine learning model to work out who is likely to win each game — from the group stage all the way to the final.
+This is a project I built to predict how the 2026 World Cup might play out. It uses real international results from the last 10 years, current squad info, and a machine learning model to work out who is likely to win each game, from the group stage all the way to the final.
 
 It runs as a small website (built with FastAPI) where you can pick any group-stage match and see the prediction, the reasoning behind it, both squads, and recent form. There is also a knockout page that simulates the whole tournament thousands of times to show each team's chances.
 
@@ -16,18 +16,18 @@ The site has three pages: a welcome overview, the group-stage match reports, and
 
 ![Welcome dashboard](assets/screenshots/welcome-dashboard.jpg)
 
-**Group-stage match report** — pick a fixture and see the prediction, both teams, and the reasoning behind it.
+**Group-stage match report**, pick a fixture and see the prediction, both teams, and the reasoning behind it.
 
 ![Group-stage match report](assets/screenshots/group-match-report.jpg)
 
-**Knockout projection** — the full tournament simulated 10,000 times, with each team's odds.
+**Knockout projection**, the full tournament simulated 10,000 times, with each team's odds.
 
 ![Monte Carlo tournament simulation](assets/screenshots/tournament-simulation.jpg)
 
 ## What it does
 
 - Pick any of the 72 scheduled group-stage matches and get a win/draw/loss prediction with a projected score.
-- See why the model picked a result — Elo strength, recent form, squad attack and defense, experience, club strength, and home advantage, each with how much it counts.
+- See why the model picked a result, Elo strength, recent form, squad attack and defense, experience, club strength, and home advantage, each with how much it counts.
 - Browse the full squad and player ratings for every team.
 - Project the whole knockout bracket: group standings, the 32 qualifiers, scorelines, and a champion.
 - Run the tournament 10,000 times (Monte Carlo) to get each team's odds of reaching every round and winning it all.
@@ -68,9 +68,9 @@ worldcup26-predictor/
 
 The website is plain HTML, CSS, and JavaScript kept in `src/wc26_predictor/api/web/`:
 
-- `index.html` — the page layout
-- `styles.css` — all of the styling
-- `app.js` — fetches data from the API and builds each view
+- `index.html`, the page layout
+- `styles.css`, all of the styling
+- `app.js`, fetches data from the API and builds each view
 
 FastAPI serves `index.html` at `/`, serves the CSS and JS from `/static`, and exposes the prediction and tournament data as JSON. So one server runs both the site and the API.
 
@@ -119,7 +119,7 @@ Then open `http://127.0.0.1:8000`.
 
 ## The data
 
-Everything runs locally with the included CSV files — no paid APIs. The match history covers the last 10 years of international games for the 2026 teams (competitive matches and friendlies). Squad data is in CSV files, so it is easy to update as rosters change.
+Everything runs locally with the included CSV files, no paid APIs. The match history covers the last 10 years of international games for the 2026 teams (competitive matches and friendlies). Squad data is in CSV files, so it is easy to update as rosters change.
 
 Rebuild the match data:
 
@@ -134,18 +134,18 @@ python -m wc26_predictor.data.build_matches \
 
 Main files:
 
-- `group_stage_fixtures.csv` — the scheduled group matches
-- `matches.csv` — match history used for training
-- `qualified_teams.csv` — the 48 teams and their groups
-- `worldcup_squads_26.csv` — player rosters shown in the app
-- `team_metadata.csv` — managers, confederation, and notes
-- `fifa_rankings.csv` — dated FIFA world rankings (team, date, points) used for the ranking feature
+- `group_stage_fixtures.csv`, the scheduled group matches
+- `matches.csv`, match history used for training
+- `qualified_teams.csv`, the 48 teams and their groups
+- `worldcup_squads_26.csv`, player rosters shown in the app
+- `team_metadata.csv`, managers, confederation, and notes
+- `fifa_rankings.csv`, dated FIFA world rankings (team, date, points) used for the ranking feature
 
 ### Where the data comes from
 
-- **Match history** — the [martj42/international_results](https://github.com/martj42/international_results) repo on GitHub, which keeps a CSV of every international men's match since 1872. The `build_matches` script pulls the live file and trims it to the last 10 years of games involving 2026 qualifiers.
-- **FIFA rankings** — the [Dato-Futbol/fifa-ranking](https://github.com/Dato-Futbol/fifa-ranking) repo, which scraped FIFA's website for the historical ranking points published from 1992 onward.
-- **Squads, fixtures, qualified teams, and manager metadata** — built by hand from the official FIFA fixture list and public roster information, then kept in CSV files so they are easy to update as rosters change.
+- **Match history**, the [martj42/international_results](https://github.com/martj42/international_results) repo on GitHub, which keeps a CSV of every international men's match since 1872. The `build_matches` script pulls the live file and trims it to the last 10 years of games involving 2026 qualifiers.
+- **FIFA rankings**, the [Dato-Futbol/fifa-ranking](https://github.com/Dato-Futbol/fifa-ranking) repo, which scraped FIFA's website for the historical ranking points published from 1992 onward.
+- **Squads, fixtures, qualified teams, and manager metadata**, built by hand from the official FIFA fixture list and public roster information, then kept in CSV files so they are easy to update as rosters change.
 
 ## How the model works
 
@@ -161,7 +161,7 @@ It looks at:
 
 Team names from the source data are converted to the official 2026 names (for example Turkey to Turkiye) so each team keeps its full history.
 
-The main model is XGBoost, with the draw threshold tuned on a 2024 validation set. The final numbers are only measured on matches from 2025 onward, which are never used for tuning, so they are a fair test. Current squad ratings are kept out of the historical training — using a 2026 squad on old games would be cheating — and are added only as a small adjustment at the end. Separate Poisson goal models estimate the scorelines.
+The main model is XGBoost, with the draw threshold tuned on a 2024 validation set. The final numbers are only measured on matches from 2025 onward, which are never used for tuning, so they are a fair test. Current squad ratings are kept out of the historical training, using a 2026 squad on old games would be cheating, and are added only as a small adjustment at the end. Separate Poisson goal models estimate the scorelines.
 
 ### Tournament simulation
 
@@ -195,8 +195,8 @@ I tested several ideas the proper way tuning only on the 2024 validation set and
 
 **Tried but left out, because they didn't help on the test set:**
 
-- **Probability calibration and a Poisson score-model blend** — they lowered the 2024 validation loss but made the 2025–2026 test numbers slightly worse, a classic sign of overfitting the validation data. The model was already well-calibrated, so there was little to fix.
-- **A small hyperparameter search** — it picked deeper trees that looked better on validation but generalized worse on the test set, so the original shallow, well-regularized settings won.
+- **Probability calibration and a Poisson score-model blend**, they lowered the 2024 validation loss but made the 2025–2026 test numbers slightly worse, a classic sign of overfitting the validation data. The model was already well-calibrated, so there was little to fix.
+- **A small hyperparameter search**, it picked deeper trees that looked better on validation but generalized worse on the test set, so the original shallow, well-regularized settings won.
 
 The takeaway: for international football, around 57% accuracy with a log loss near 0.83 is close to the realistic ceiling. Even bookmakers land in a similar range, so I would rather report honest numbers than overfit them.
 
