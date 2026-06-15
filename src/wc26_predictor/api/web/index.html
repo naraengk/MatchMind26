@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WC 2026 Predictor</title>
+  <link rel="icon" href="/assets/site_icon.png" />
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body class="page-welcome">
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <img src="/assets/site_icon.png" alt="World Cup trophy" />
+        <div class="brand-copy">
+          <div class="brand-kicker">FIFA World Cup 2026</div>
+          <div class="brand-title">WC 2026 Predictor</div>
+          <div class="brand-subtitle">Match predictions, squad analysis, and tournament projections</div>
+        </div>
+      </div>
+      <div class="header-status">
+        <div class="status-copy"><span>Model status</span><strong>Trained and ready</strong></div>
+        <span class="status-live" aria-label="Model online"></span>
+      </div>
+    </header>
+
+    <nav class="tabs">
+      <button class="tab active" data-page="welcome" data-label="Welcome Page"><span>Welcome Page</span><small>Current</small></button>
+      <button class="tab" data-page="group" data-label="Group Stage"><span>Group Stage</span></button>
+      <button class="tab" data-page="knockout" data-label="Knockout Stages"><span>Knockout Stages</span></button>
+    </nav>
+
+    <section id="welcome" class="page"></section>
+    <section id="group" class="page hidden"></section>
+    <section id="knockout" class="page hidden"></section>
+  </main>
+
+  <script src="/static/app.js" defer></script>
+</body>
+</html>
