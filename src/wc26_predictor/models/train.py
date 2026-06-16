@@ -30,7 +30,7 @@ from wc26_predictor.models.ensemble import MatchOutcomeEnsemble
 DEFAULT_RANKINGS_PATH = "data/sample/fifa_rankings.csv"
 
 # Day before the 2026 World Cup opener (June 11). Everything up to and including
-# this date — the last friendlies and qualifiers before the tournament — is used
+# this date (the last friendlies and qualifiers before the tournament) is used
 # for training and testing; the tournament itself is never used.
 MODEL_DATA_CUTOFF = pd.Timestamp("2026-06-10")
 

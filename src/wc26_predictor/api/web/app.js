@@ -36,7 +36,7 @@
       const kind = value === "W" ? "win" : value === "D" ? "draw" : "loss";
       return `<span class="result-badge result-${kind}" aria-label="${kind}">${esc(value)}</span>`;
     };
-    const versusCell = row => `<span class="versus-cell">${teamWithFlag(row.home_team, row.home_flag)}<span class="versus-score">${esc(row.home_score)}–${esc(row.away_score)}</span>${teamWithFlag(row.away_team, row.away_flag)}</span>`;
+    const versusCell = row => `<span class="versus-cell">${teamWithFlag(row.home_team, row.home_flag)}<span class="versus-score">${esc(row.home_score)}-${esc(row.away_score)}</span>${teamWithFlag(row.away_team, row.away_flag)}</span>`;
     const venueCell = row => `<span class="venue-cell"><strong>${esc(row.city)}</strong><small>${esc(row.stadium)}</small></span>`;
     const recentFormPanel = team => {
       const wins = team.recent.filter(match => match.result === "W").length;
@@ -60,7 +60,7 @@
         <div class="recent-match-list">${rows}</div>
       </article>`;
     };
-    const emptyHeadToHead = () => `<div class="analysis-empty"><span class="analysis-empty-icon">—</span><div><strong>No recent meetings</strong><span>There is no head-to-head match in the project’s ten-year dataset.</span></div></div>`;
+    const emptyHeadToHead = () => `<div class="analysis-empty"><span class="analysis-empty-icon">-</span><div><strong>No recent meetings</strong><span>There is no head-to-head match in the project’s ten-year dataset.</span></div></div>`;
 
     function setPage(page) {
       state.currentPage = page;

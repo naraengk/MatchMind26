@@ -189,13 +189,13 @@ The model beats the baseline.
 
 ### What helped and what didn't
 
-I tested several ideas the proper way tuning only on the 2024 validation set and judging each on the untouched 2025–2026 test set.
+I tested several ideas the proper way tuning only on the 2024 validation set and judging each on the untouched 2025-2026 test set.
 
 **Added it because it helped:** a dated FIFA ranking feature. Each match uses the two teams' ranking gap *as of the day it was played*, so there is no future-data leakage. It pushed draw recall up the most (about +4 points) and nudged accuracy and log loss in the right direction, so it earned a place in the model.
 
 **Tried but left out, because they didn't help on the test set:**
 
-- **Probability calibration and a Poisson score-model blend**, they lowered the 2024 validation loss but made the 2025–2026 test numbers slightly worse, a classic sign of overfitting the validation data. The model was already well-calibrated, so there was little to fix.
+- **Probability calibration and a Poisson score-model blend**, they lowered the 2024 validation loss but made the 2025-2026 test numbers slightly worse, a classic sign of overfitting the validation data. The model was already well-calibrated, so there was little to fix.
 - **A small hyperparameter search**, it picked deeper trees that looked better on validation but generalized worse on the test set, so the original shallow, well-regularized settings won.
 
 The takeaway: for international football, around 57% accuracy with a log loss near 0.83 is close to the realistic ceiling. Even bookmakers land in a similar range, so I would rather report honest numbers than overfit them.
