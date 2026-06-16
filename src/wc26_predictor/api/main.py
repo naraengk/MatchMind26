@@ -389,8 +389,8 @@ def load_context() -> dict[str, Any]:
     fixtures["fixture_id"] = fixtures.index.astype(int)
     fixtures["label"] = fixtures.apply(
         lambda row: (
-            f"Group {row['group']} / {row['date'].strftime('%b %d')} / "
-            f"{row['team_one']} vs {row['team_two']} / {row['city']}"
+            f"Group {row['group']} | {row['date'].strftime('%b %d')} | "
+            f"{row['team_one']} vs {row['team_two']} | {row['city']}"
         ),
         axis=1,
     )

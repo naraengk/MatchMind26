@@ -117,9 +117,9 @@
         </section>
         <div class="section-title"><div class="kicker">How To Explore</div><h2>One model, two prediction views</h2></div>
         <section class="workflow-grid">
-          <article class="workflow-card"><div class="workflow-index">01 / FIXTURE REPORT</div><h3>Group Stage Analysis</h3><p>Choose an official fixture to compare probabilities, Elo ratings, recent form, managers, squad depth, player ratings, and venue advantage.</p></article>
-          <article class="workflow-card"><div class="workflow-index">02 / TOURNAMENT SIMULATION</div><h3>Knockout Projection</h3><p>Generate expected group standings, identify the 32 qualifiers, and follow projected scorelines and confidence through the final.</p></article>
-          <article class="workflow-card"><div class="workflow-index">03 / EXPLAINABILITY</div><h3>Evidence Behind Results</h3><p>See all eight signals behind a prediction, how much each one counts, how it is measured, and which team has the edge.</p></article>
+          <article class="workflow-card"><div class="workflow-index">01 | FIXTURE REPORT</div><h3>Group Stage Analysis</h3><p>Choose an official fixture to compare probabilities, Elo ratings, recent form, managers, squad depth, player ratings, and venue advantage.</p></article>
+          <article class="workflow-card"><div class="workflow-index">02 | TOURNAMENT SIMULATION</div><h3>Knockout Projection</h3><p>Generate expected group standings, identify the 32 qualifiers, and follow projected scorelines and confidence through the final.</p></article>
+          <article class="workflow-card"><div class="workflow-index">03 | EXPLAINABILITY</div><h3>Evidence Behind Results</h3><p>See all eight signals behind a prediction, how much each one counts, how it is measured, and which team has the edge.</p></article>
         </section>`;
     }
 
@@ -129,7 +129,7 @@
       document.getElementById("group").innerHTML = `
         <section class="stage-landing group-landing">
           <div class="group-landing-copy">
-            <div class="stage-eyebrow">Group-stage fixtures / 72 scheduled matches</div>
+            <div class="stage-eyebrow">Group-stage fixtures | 72 scheduled matches</div>
             <h1>Group Stage</h1>
             <p>Choose an official fixture and open a complete pre-match report built from team history, current form, squad quality, managers, and venue advantage.</p>
             <div class="stage-tags"><span class="stage-tag">12 groups</span><span class="stage-tag">48 teams</span><span class="stage-tag">8 model signals</span><span class="stage-tag">26-player squads</span></div>
@@ -174,7 +174,7 @@
       report.className = "";
       report.innerHTML = `
         <section class="panel">
-          <div class="kicker">Group ${esc(data.fixture.group)} / ${esc(data.fixture.city)}</div>
+          <div class="kicker">Group ${esc(data.fixture.group)} | ${esc(data.fixture.city)}</div>
           <div class="prediction-title">${esc(p.title)}</div>
           <p>${esc(p.summary)}</p>
           <div class="prob-grid">
@@ -242,7 +242,7 @@
     function teamRoom(team) {
       const r = team.record, m = team.metadata;
       return `<article class="team-card">
-        <div class="kicker">Group ${esc(m.group)} / ${esc(m.confederation)}</div>
+        <div class="kicker">Group ${esc(m.group)} | ${esc(m.confederation)}</div>
         <h2>${teamWithFlag(team.name, team.flag)}</h2>
         <div class="manager">Manager: ${esc(m.manager)}</div>
         <p>${esc(m.scouting_note)}</p>
@@ -274,7 +274,7 @@
         const number = core ? player.position : `#${String(player.shirt_number).padStart(2, "0")}`;
         const playerRating = core ? player.overall_rating : player.player_rating;
         const clubRating = core ? player.club_strength : player.club_rating;
-        const detail = `${player.position} / ${player.age} years / ${player.club}`;
+        const detail = `${player.position} | ${player.age} years | ${player.club}`;
         return `<div class="player-row">
           <span class="shirt-number">${esc(number)}</span>
           <span class="club-badge" title="${esc(player.club)}" aria-label="${esc(player.club)}" style="background:${clubColor(player.club)}">${clubInitials(player.club)}</span>
@@ -323,7 +323,7 @@
       root.innerHTML = `
         <section class="stage-landing knockout-landing">
           <div class="knockout-copy">
-            <div class="stage-eyebrow">Tournament Simulation / 32-Team Field</div>
+            <div class="stage-eyebrow">Tournament Simulation | 32-Team Field</div>
             <h1>Knockout Stages</h1>
             <p>Follow the projected route from qualification through every knockout tie, with a projected scoreline and a confidence level for each one.</p>
             <div class="round-path"><span>R32</span><i></i><span>R16</span><i></i><span>QF</span><i></i><span>SF</span><i></i><span>Final</span></div>
@@ -441,7 +441,7 @@
     }
 
     function qualifierCards(qualifiers, flagMap) {
-      return qualifiers.map(row => `<article class="qualifier-card"><div class="qualifier-top"><span class="seed">SEED ${row.Seed}</span><span>Group ${esc(row.Group)} / #${row["Group Rank"]}</span></div><div class="qualifier-team">${teamWithFlag(row.Team, row.Flag || flagMap[row.Team] || "")}</div><div class="qualifier-meta"><span>${Number(row["Expected Points"]).toFixed(2)} pts</span><span>${Math.round(row.Elo)} Elo</span></div><span class="path-tag">${esc(row.Path)}</span></article>`).join("");
+      return qualifiers.map(row => `<article class="qualifier-card"><div class="qualifier-top"><span class="seed">SEED ${row.Seed}</span><span>Group ${esc(row.Group)} | #${row["Group Rank"]}</span></div><div class="qualifier-team">${teamWithFlag(row.Team, row.Flag || flagMap[row.Team] || "")}</div><div class="qualifier-meta"><span>${Number(row["Expected Points"]).toFixed(2)} pts</span><span>${Math.round(row.Elo)} Elo</span></div><span class="path-tag">${esc(row.Path)}</span></article>`).join("");
     }
 
     function matchCard(row) {
