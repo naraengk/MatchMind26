@@ -83,7 +83,7 @@ class MatchOutcomeEnsemble:
     def _score_probabilities(self, x: pd.DataFrame) -> np.ndarray:
         # Turn the two expected-goal numbers into win/draw/loss odds.
         features = x[self.feature_columns]
-        # Predicted average goals for each side (capped so blowouts stay sensible).
+        # Predicted average goals for each side, clipped to 0.15..5 goals.
         expected_home = np.clip(self.home_goals_model.predict(features), 0.15, 5.0)
         expected_away = np.clip(self.away_goals_model.predict(features), 0.15, 5.0)
         score_probabilities = []

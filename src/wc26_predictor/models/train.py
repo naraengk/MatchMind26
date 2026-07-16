@@ -38,8 +38,7 @@ MODEL_DATA_CUTOFF = pd.Timestamp("2026-06-10")
 def chronological_split(
     frame: pd.DataFrame,
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    # Split by time, not at random: learn on older games, tune on 2024, and test on
-    # 2025+ which the model never sees during training. That mimics real forecasting.
+    # Train on pre-2024, tune on 2024, test on 2025+. Time-based so no future leakage.
     train = frame[frame["date"] < pd.Timestamp("2024-01-01")].copy()
     validation = frame[
         (frame["date"] >= pd.Timestamp("2024-01-01"))

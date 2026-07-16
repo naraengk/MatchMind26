@@ -60,7 +60,7 @@
         <div class="recent-match-list">${rows}</div>
       </article>`;
     };
-    const emptyHeadToHead = () => `<div class="analysis-empty"><span class="analysis-empty-icon">-</span><div><strong>No recent meetings</strong><span>There is no head-to-head match in the project’s ten-year dataset.</span></div></div>`;
+    const emptyHeadToHead = () => `<div class="analysis-empty"><span class="analysis-empty-icon">-</span><div><strong>No recent meetings</strong><span>There is no head-to-head match in the project's ten-year dataset.</span></div></div>`;
 
     function setPage(page) {
       state.currentPage = page;
@@ -84,9 +84,8 @@
       document.getElementById("welcome").innerHTML = `
         <section class="hero">
           <div class="hero-copy">
-            <div class="kicker">FIFA World Cup 2026</div>
             <h1>WC 2026<br><span class="accent">match predictor</span></h1>
-            <p>Explore every scheduled group-stage match, see the reasoning behind each prediction, and follow the full route to the World Cup final.</p>
+            <p>Pick any group-stage match to see the prediction and why. There's also a knockout page that runs the whole tournament thousands of times.</p>
             <div class="pill-row">
               <span class="pill">${esc(facts.hosts)}</span>
               <span class="pill">${esc(facts.dates)}</span>
@@ -98,15 +97,14 @@
           </div>
           <aside class="hero-console">
             <div class="console-head">
-              <div><div class="kicker" style="margin:0 0 5px">Prediction model</div><strong>World Cup 2026</strong></div>
-              <span class="live-status">Ready</span>
+              <div><div class="kicker">Prediction model</div></div>
             </div>
             <div class="tournament-map">
-              <div class="map-line"><span class="map-number">01</span><div><strong>Group Stage</strong><small>${facts.fixtures} scheduled fixtures</small></div><span class="map-value">48</span></div>
-              <div class="map-line"><span class="map-number">02</span><div><strong>Qualification</strong><small>Top two plus best third-place teams</small></div><span class="map-value">32</span></div>
-              <div class="map-line"><span class="map-number">03</span><div><strong>Knockout Path</strong><small>Five rounds to the title</small></div><span class="map-value">1</span></div>
+              <div class="map-line"><div><strong>Group Stage</strong><small>${facts.fixtures} scheduled fixtures</small></div><span class="map-value">48</span></div>
+              <div class="map-line"><div><strong>Qualification</strong><small>Top two plus best third-place teams</small></div><span class="map-value">32</span></div>
+              <div class="map-line"><div><strong>Knockout Path</strong><small>Five rounds to the title</small></div><span class="map-value">5</span></div>
             </div>
-            <p>Historical performance, current squad quality, recent form, club strength, experience, and venue advantage are combined into each projection.</p>
+            <p>Every prediction uses past results, current squads, recent form, club strength, and a small home boost for the host nations.</p>
           </aside>
         </section>
         <section class="welcome-band">
@@ -115,11 +113,10 @@
           <div class="welcome-stat"><span>Group Matches</span><b>${facts.fixtures}</b></div>
           <div class="welcome-stat"><span>Training Matches</span><b>${Number(facts.training_matches || 0).toLocaleString()}</b></div>
         </section>
-        <div class="section-title"><div class="kicker">How To Explore</div><h2>One model, two prediction views</h2></div>
         <section class="workflow-grid">
-          <article class="workflow-card"><div class="workflow-index">01 | FIXTURE REPORT</div><h3>Group Stage Analysis</h3><p>Choose an official fixture to compare probabilities, Elo ratings, recent form, managers, squad depth, player ratings, and venue advantage.</p></article>
-          <article class="workflow-card"><div class="workflow-index">02 | TOURNAMENT SIMULATION</div><h3>Knockout Projection</h3><p>Generate expected group standings, identify the 32 qualifiers, and follow projected scorelines and confidence through the final.</p></article>
-          <article class="workflow-card"><div class="workflow-index">03 | EXPLAINABILITY</div><h3>Evidence Behind Results</h3><p>See all eight signals behind a prediction, how much each one counts, how it is measured, and which team has the edge.</p></article>
+          <article class="workflow-card"><div class="workflow-index">FIXTURE REPORT</div><h3>Group Stage Analysis</h3><p>Pick a match and get a full pre-match report: probabilities, ratings, form, managers, and both squads.</p></article>
+          <article class="workflow-card"><div class="workflow-index">TOURNAMENT SIMULATION</div><h3>Knockout Projection</h3><p>Projected group standings, the 32 qualifiers, and every other knockout tie with a scoreline all the way to the final.</p></article>
+          <article class="workflow-card"><div class="workflow-index">EXPLAINABILITY</div><h3>Evidence Behind Results</h3><p>See the eight things the model looks at, how much each one matters, and which team leads on each.</p></article>
         </section>`;
     }
 
@@ -131,20 +128,20 @@
           <div class="group-landing-copy">
             <div class="stage-eyebrow">Group-stage fixtures | 72 scheduled matches</div>
             <h1>Group Stage</h1>
-            <p>Choose an official fixture and open a complete pre-match report built from team history, current form, squad quality, managers, and venue advantage.</p>
+            <p>Pick a match to see the prediction with team history, current form, squads, managers, and home advantage.</p>
             <div class="stage-tags"><span class="stage-tag">12 groups</span><span class="stage-tag">48 teams</span><span class="stage-tag">8 model signals</span><span class="stage-tag">26-player squads</span></div>
           </div>
           <div class="analysis-map">
-            <div class="analysis-step"><span class="analysis-step-index">01</span><div><strong>Select a fixture</strong><small>Official group schedule only</small></div><span class="analysis-step-value">72</span></div>
-            <div class="analysis-step"><span class="analysis-step-index">02</span><div><strong>Compare the teams</strong><small>Form, Elo, squads, and venue</small></div><span class="analysis-step-value">8 signals</span></div>
-            <div class="analysis-step"><span class="analysis-step-index">03</span><div><strong>Read the forecast</strong><small>Probabilities with full reasoning</small></div><span class="analysis-step-value">3 outcomes</span></div>
+            <div class="analysis-step"><div><strong>Select a fixture</strong><small>Official group schedule only</small></div><span class="analysis-step-value">72</span></div>
+            <div class="analysis-step"><div><strong>Compare the teams</strong><small>Form, Elo, squads, and venue</small></div><span class="analysis-step-value">8 signals</span></div>
+            <div class="analysis-step"><div><strong>Read the forecast</strong><small>Probabilities with full reasoning</small></div><span class="analysis-step-value">3 outcomes</span></div>
           </div>
         </section>
         <section class="selectors">
           <div><label>Group</label><select id="groupSelect">${groups.map(g => `<option>${esc(g)}</option>`).join("")}</select></div>
           <div><label>Scheduled Group-Stage Match</label><select id="fixtureSelect"><option value="">Select a match</option></select></div>
         </section>
-        <div id="matchReport" class="tool-intro"><h1>Select a scheduled match</h1><p>Choose a fixture above to see the prediction, squad ratings, team stats, recent form, the head-to-head record, and the reasoning behind it.</p></div>`;
+        <div id="matchReport" class="tool-intro"><h1>Pick a match to get started</h1><p>Choose a fixture above to see the prediction, both squads, team stats, recent form, and the head-to-head record.</p></div>`;
       const groupSelect = document.getElementById("groupSelect");
       const fixtureSelect = document.getElementById("fixtureSelect");
       const syncFixtures = () => {
@@ -192,7 +189,7 @@
         <section class="deep-analysis-shell">
           <div class="analysis-heading">
             <div><div class="kicker">Team comparison</div><h2>Deep Analysis</h2></div>
-            <p>Compare short-term momentum, direct meetings, and every fixture that can shape the final group table.</p>
+            <p>Recent form, past meetings between the two teams, and the rest of the group's fixtures.</p>
           </div>
           <div class="team-grid">
             ${recentFormPanel(a)}
@@ -222,7 +219,7 @@
       return `<section class="panel evaluation-panel">
         <div class="evaluation-head">
           <div><div class="kicker">Held-out test results</div><h3>Model Evaluation</h3></div>
-          <p>These results use matches from 2025 onward. The model and draw threshold were selected using earlier seasons only.</p>
+          <p>Measured on matches from 2025 only. The model and draw cutoff were picked from earlier games, so these numbers are a fair test.</p>
         </div>
         <div class="evaluation-grid">
           ${metric("Accuracy", pct(Number(metrics.accuracy) * 100), "All three outcomes")}
@@ -299,7 +296,7 @@
 
     async function renderKnockout() {
       const root = document.getElementById("knockout");
-      root.innerHTML = `<section class="tool-intro loading-shell"><div><div class="loader"></div><h2>Building Tournament Projection</h2><p>Calculating 72 group matches, qualification seeds, knockout ties, scorelines, and confidence levels.</p></div></section>`;
+      root.innerHTML = `<section class="tool-intro loading-shell"><div><div class="loader"></div><h2>Building Tournament Projection</h2><p>Running the group matches, picking the qualifiers, and playing out the bracket.</p></div></section>`;
       let data = state.tournament;
       try {
         if (!data) {
@@ -325,7 +322,7 @@
           <div class="knockout-copy">
             <div class="stage-eyebrow">Tournament Simulation | 32-Team Field</div>
             <h1>Knockout Stages</h1>
-            <p>Follow the projected route from qualification through every knockout tie, with a projected scoreline and a confidence level for each one.</p>
+            <p>Every knockout tie from the Round of 32 to the final, with a projected score and how sure the model is about each one.</p>
             <div class="round-path"><span>R32</span><i></i><span>R16</span><i></i><span>QF</span><i></i><span>SF</span><i></i><span>Final</span></div>
           </div>
           <aside class="champion-feature">
@@ -334,20 +331,23 @@
             <div class="champion-confidence"><span>Final win confidence</span><strong>${pct(data.final_confidence)}</strong></div>
           </aside>
         </section>
+        <div class="data-heading confidence-intro">
+          <div><div class="kicker">Round-by-Round Confidence</div><h2>How sure is the model?</h2></div>
+          <p>For one match, confidence is the projected winner's share of the two teams' win chances (the draw chance is set aside). 50% is a coin flip, 75%+ means the model is fairly sure. Each card below averages that number across every match in the round, so Round of 32 is an average of 16 matches, while the Final is just the one game.</p>
+        </div>
         <section class="stage-confidence-grid">${[
           {name:"Round of 32", ties:16},
           {name:"Round of 16", ties:8},
           {name:"Quarterfinals", ties:4},
           {name:"Semifinals", ties:2},
           {name:"Final", ties:1}
-        ].map((stage, index) => {
+        ].map((stage) => {
           const row = data.round_confidence.find(item => item.Round === stage.name);
           const confidence = Number(row ? row["Win Confidence"] : 0);
           const tier = confidence >= 75 ? "Strong signal" : confidence >= 65 ? "Clear lean" : "Competitive";
           return `<article class="panel stage-card">
             <div class="stage-card-head">
               <div><span class="kicker">${esc(stage.name)}</span><div class="stage-matches">${stage.ties} projected ${stage.ties === 1 ? "tie" : "ties"}</div></div>
-              <span class="stage-number">0${index + 1}</span>
             </div>
             <div>
               <div class="stage-confidence-value"><strong>${pct(confidence)}</strong><span>average confidence</span></div>
@@ -361,11 +361,11 @@
         ${bracketView(data.bracket)}
         <section class="panel"><h3>How This Is Calculated</h3><p>${esc(data.method)}</p></section>
         <section class="tournament-data">
-          <div class="data-heading"><div><div class="kicker">Group Projection</div><h2>Projected Groups</h2></div><p>Expected points combine every scheduled fixture's win, draw, and loss probabilities.</p></div>
+          <div class="data-heading"><div><div class="kicker">Group Projection</div><h2>Projected Groups</h2></div><p>Points work the same as normal (3 for a win, 1 for a draw), but here they're expected points: each match's win and draw chances added up across a team's three group games instead of actual results.</p></div>
           <div class="groups-grid">${groupCards(data.groups, flagMap)}</div>
         </section>
         <section class="tournament-data">
-          <div class="data-heading"><div><div class="kicker">Round of 32 Field</div><h2>Qualified Teams</h2></div><p>The top two in each group advance with the eight strongest third-place teams.</p></div>
+          <div class="data-heading"><div><div class="kicker">Round of 32 Field</div><h2>Qualified Teams</h2></div><p>The top two from each group plus the eight best third-place teams.</p></div>
           <div class="qualifier-grid">${qualifierCards(data.qualifiers, flagMap)}</div>
         </section>`;
     }
@@ -383,7 +383,7 @@
       ];
       return `<section class="simulation-section">
         <div class="simulation-heading">
-          <div><div class="kicker">Probability Forecast</div><h2>Monte Carlo Tournament Simulation</h2><p>The model runs the complete tournament ${Number(simulation.simulations).toLocaleString()} times instead of assuming the favorite always wins.</p></div>
+          <div><div class="kicker">Probability Forecast</div><h2>Monte Carlo Tournament Simulation</h2><p>The whole tournament is played out ${Number(simulation.simulations).toLocaleString()} times to see how often each team makes it and wins.</p></div>
           <span class="simulation-badge">${Number(simulation.simulations).toLocaleString()} simulated tournaments</span>
         </div>
         <div class="simulation-summary">

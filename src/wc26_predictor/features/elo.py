@@ -1,6 +1,3 @@
-# Elo ratings: a running strength score for every team that goes up after a win
-# and down after a loss. How much it moves depends on how big the match was and
-# how heavily the team won.
 from __future__ import annotations
 
 import math

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import os
 import re
 import threading
@@ -12,6 +13,7 @@ import joblib
 import numpy as np
 import pandas as pd
 from fastapi import FastAPI, HTTPException
+from scipy.stats import poisson
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
@@ -278,7 +280,8 @@ async def lifespan(_: FastAPI):
         try:
             load_context()
             tournament_payload()
-        except Exception:  # noqa: BLE001 - warming is best-effort, never fatal
+            _all_match_reports()
+        except Exception:  # noqa: BLE001
             pass
 
     threading.Thread(target=_warm, name="cache-warm", daemon=True).start()
@@ -420,7 +423,7 @@ def metadata_for(metadata: pd.DataFrame, team: str) -> dict[str, str]:
             "manager": "Not listed",
             "qualification_path": "Qualified team",
             "confederation": "World Cup field",
-            "scouting_note": "Metadata can be updated as official information changes.",
+            "scouting_note": "Info can be updated once official rosters change.",
         }
     return row.iloc[0].fillna("Not listed").to_dict()
 
@@ -554,12 +557,14 @@ def predict_from_artifact(
     }
     adjusted = apply_venue_adjustment(result, team_one, team_two, city)
     draw_threshold = float(getattr(model, "draw_threshold", 1.0))
-    if float(adjusted["draw"]) >= draw_threshold:
+    home_win, draw, away_win = float(adjusted["home_win"]), float(adjusted["draw"]), float(adjusted["away_win"])
+    top_win = max(home_win, away_win)
+    # Only call a draw when it clears the threshold AND is close to the
+    # leading win chance. Otherwise the more likely team wins.
+    if draw >= draw_threshold and draw >= top_win - 0.05:
         adjusted["predicted_outcome"] = "draw"
     else:
-        adjusted["predicted_outcome"] = max(
-            ["home_win", "away_win"], key=lambda key: float(adjusted[key])
-        )
+        adjusted["predicted_outcome"] = "home_win" if home_win >= away_win else "away_win"
     return adjusted
 
 
@@ -574,9 +579,9 @@ def prediction_title(result: dict[str, Any]) -> str:
 def outcome_sentence(result: dict[str, Any]) -> str:
     outcome = str(result["predicted_outcome"])
     if outcome == "draw":
-        return "The win, draw, and loss chances are close, so the model sees this as an even game."
+        return "The two teams look pretty even."
     winner = result["home_team"] if outcome == "home_win" else result["away_team"]
-    return f"{winner} comes out ahead once team strength, recent form, scoring, squad quality, and home advantage are weighed together."
+    return f"{winner} has the edge once everything is weighed together."
 
 
 def feature_evidence(
@@ -587,50 +592,49 @@ def feature_evidence(
             "Elo Strength",
             "elo",
             24,
-            "Historical team strength updated match by match, weighted by competition, "
-            "winning margin, and home advantage.",
+            "Running team-strength score, updated after every match. Big wins and big games move it more.",
             "Qualified teams span roughly 1550-2250; 1900+ is strong, 2050+ elite.",
         ),
         (
             "Recent Points",
             "recent_points",
             14,
-            "Average recent win/draw/loss points over the form window.",
+            "Average points from the team's recent games (3 for a win, 1 for a draw).",
             "0.0 to 3.0 points per match; 2.0+ is strong.",
         ),
         (
             "Recent Goal Difference",
             "recent_goal_diff",
             12,
-            "Recent goals scored minus goals conceded, averaged by match.",
+            "Goals scored minus goals conceded across the team's recent games.",
             "Negative means being outscored, 0 is even, +1.0 is strong.",
         ),
         (
             "Squad Attack",
             "squad_attack",
             14,
-            "Sum of attacking-value ratings from listed squad players.",
-            "Larger totals indicate more attacking quality and depth.",
+            "Total attacking rating across the whole squad.",
+            "Higher = more attacking talent and depth.",
         ),
         (
             "Squad Defense",
             "squad_defense",
             12,
-            "Sum of defensive-value ratings from listed squad players.",
-            "Larger totals indicate more defensive quality and depth.",
+            "Total defensive rating across the whole squad.",
+            "Higher = more defensive talent and depth.",
         ),
         (
             "Experience",
             "squad_total_caps",
             8,
-            "Total senior international caps across listed squad players.",
-            "Higher totals indicate more national-team experience.",
+            "Total national-team caps across the whole squad.",
+            "Higher = more experience playing for the country.",
         ),
         (
             "Club Strength",
             "squad_club_strength",
             12,
-            "Average club-quality rating across listed players.",
+            "Average club rating across the whole squad.",
             "60s is modest, 70s solid, 80s strong, 90s elite.",
         ),
     ]
@@ -665,7 +669,7 @@ def feature_evidence(
             "edge": home_team if venue_delta > 0 else away_team if venue_delta < 0 else "Even",
             "weight": 4,
             "formula": str(result.get("venue_label", "Neutral venue with no host nation advantage.")),
-            "scale": "A small bonus for the three host nations when they play at home. It is a minor factor.",
+            "scale": "Small boost for the three host nations when they play at home. Minor factor.",
         }
     )
     return rows
@@ -852,20 +856,26 @@ def projected_knockout_score(
     expected_home_goals: float | None = None,
     expected_away_goals: float | None = None,
 ) -> tuple[int, int]:
-    # Make up a sensible scoreline for a knockout tie (there are no draws here, so
-    # the projected winner is always given at least one more goal).
+    # Pick the most likely non-draw scoreline from the Poisson goal models.
+    # Rounding expected goals directly collapses almost every tie to 2-1.
     if expected_home_goals is not None and expected_away_goals is not None:
-        team_one_goals = max(0, min(4, int(round(expected_home_goals))))
-        team_two_goals = max(0, min(4, int(round(expected_away_goals))))
-        if team_one_goals == team_two_goals:
-            if winner == team_one:
-                team_one_goals += 1
-            else:
-                team_two_goals += 1
-        elif winner == team_one and team_one_goals < team_two_goals:
-            team_one_goals = team_two_goals + 1
-        elif winner == team_two and team_two_goals < team_one_goals:
-            team_two_goals = team_one_goals + 1
+        team_one_wins = winner == team_one
+        score_range = np.arange(0, 9)
+        home_dist = poisson.pmf(score_range, max(float(expected_home_goals), 0.15))
+        away_dist = poisson.pmf(score_range, max(float(expected_away_goals), 0.15))
+        matrix = np.outer(home_dist, away_dist)
+        team_one_goals, team_two_goals, best_prob = 1, 0, -1.0
+        for home_goals in range(9):
+            for away_goals in range(9):
+                if home_goals == away_goals:
+                    continue
+                if team_one_wins and home_goals <= away_goals:
+                    continue
+                if not team_one_wins and away_goals <= home_goals:
+                    continue
+                prob = float(matrix[home_goals, away_goals])
+                if prob > best_prob:
+                    team_one_goals, team_two_goals, best_prob = home_goals, away_goals, prob
         return team_one_goals, team_two_goals
 
     profiles = artifact["team_profiles"]
@@ -1149,11 +1159,10 @@ def monte_carlo_tournament(
             "Team Two Flag": TEAM_FLAGS.get(common_final[0][1], ""),
         },
         "method": (
-            "Each run plays all 72 group matches by drawing a win, draw, or loss from the "
-            "model's probabilities, then ranks each group on points with a simulated goal "
-            "difference as the tie-breaker. The top two teams in every group plus the eight "
-            "best third-place teams advance, and each knockout round picks a winner from the "
-            "two teams' win chances."
+            "Each run plays every group match by rolling a random result using the model's "
+            "chances, ranks the groups on points (with a random goal difference as tie-breaker), "
+            "takes the top two plus the eight best third-place teams, and then rolls each "
+            "knockout round the same way."
         ),
     }
 
@@ -1167,7 +1176,12 @@ def get_context_or_500() -> dict[str, Any]:
 
 @app.get("/", response_class=HTMLResponse)
 def index() -> str:
-    return (WEB_DIR / "index.html").read_text(encoding="utf-8")
+    html = (WEB_DIR / "index.html").read_text(encoding="utf-8")
+    css_v = int((WEB_DIR / "styles.css").stat().st_mtime) if (WEB_DIR / "styles.css").exists() else 0
+    js_v = int((WEB_DIR / "app.js").stat().st_mtime) if (WEB_DIR / "app.js").exists() else 0
+    return html.replace("/static/styles.css", f"/static/styles.css?v={css_v}").replace(
+        "/static/app.js", f"/static/app.js?v={js_v}"
+    )
 
 
 @app.get("/health")
@@ -1223,7 +1237,41 @@ def predict(request: MatchRequest) -> dict[str, Any]:
 
 @app.get("/api/match/{fixture_id}")
 def match_report(fixture_id: int) -> dict[str, Any]:
+    cache = _all_match_reports()
+    if fixture_id not in cache:
+        raise HTTPException(status_code=404, detail="Fixture not found")
+    return cache[fixture_id]
+
+
+MATCH_REPORTS_CACHE_PATH = PROJECT_ROOT / "artifacts" / "match_reports_cache.json"
+
+
+@lru_cache(maxsize=1)
+def _all_match_reports() -> dict[int, dict[str, Any]]:
+    # Build every match report once and cache to disk. There are only 72 fixtures
+    # so this is cheap upfront and makes each request effectively instant.
+    cache_fresh = (
+        MATCH_REPORTS_CACHE_PATH.exists()
+        and MODEL_PATH.exists()
+        and MATCH_REPORTS_CACHE_PATH.stat().st_mtime >= MODEL_PATH.stat().st_mtime
+    )
+    if cache_fresh:
+        try:
+            raw = json.loads(MATCH_REPORTS_CACHE_PATH.read_text())
+            return {int(k): v for k, v in raw.items()}
+        except (json.JSONDecodeError, OSError):
+            pass
     ctx = get_context_or_500()
+    reports = {int(fid): _build_match_report(int(fid), ctx) for fid in ctx["fixtures"]["fixture_id"]}
+    try:
+        MATCH_REPORTS_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+        MATCH_REPORTS_CACHE_PATH.write_text(json.dumps({str(k): v for k, v in reports.items()}))
+    except OSError:
+        pass
+    return reports
+
+
+def _build_match_report(fixture_id: int, ctx: dict[str, Any]) -> dict[str, Any]:
     fixtures = ctx["fixtures"]
     selected = fixtures[fixtures["fixture_id"] == fixture_id]
     if selected.empty:
@@ -1287,8 +1335,34 @@ def match_report(fixture_id: int) -> dict[str, Any]:
     }
 
 
+TOURNAMENT_CACHE_PATH = PROJECT_ROOT / "artifacts" / "tournament_cache.json"
+
+
 @lru_cache(maxsize=1)
 def tournament_payload() -> dict[str, Any]:
+    # The 10,000-run simulation takes several seconds, so we cache the result to
+    # disk. On a cold container start, the prebuilt cache loads in milliseconds
+    # instead of recomputing. The cache is invalidated when the model is newer.
+    cache_fresh = (
+        TOURNAMENT_CACHE_PATH.exists()
+        and MODEL_PATH.exists()
+        and TOURNAMENT_CACHE_PATH.stat().st_mtime >= MODEL_PATH.stat().st_mtime
+    )
+    if cache_fresh:
+        try:
+            return json.loads(TOURNAMENT_CACHE_PATH.read_text())
+        except (json.JSONDecodeError, OSError):
+            pass
+    payload = _build_tournament_payload()
+    try:
+        TOURNAMENT_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+        TOURNAMENT_CACHE_PATH.write_text(json.dumps(payload))
+    except OSError:
+        pass
+    return payload
+
+
+def _build_tournament_payload() -> dict[str, Any]:
     ctx = get_context_or_500()
     group_table, group_matches = group_projection(ctx["fixtures"], ctx["artifact"])
     qualifiers = tournament_qualifiers(group_table)
@@ -1309,11 +1383,10 @@ def tournament_payload() -> dict[str, Any]:
         "group_matches": records(group_matches),
         "monte_carlo": monte_carlo,
         "method": (
-            "Group standings use the expected points from every scheduled group-stage match. "
-            "The top two teams in each group, plus the eight best third-place teams, reach the "
-            "Round of 32. In the knockout rounds each tie compares the two teams' win chances, and "
-            "confidence is the projected winner's share of those two chances. Projected scores are "
-            "single best-guess scorelines based on that confidence and the Elo gap."
+            "Groups are ranked by expected points from every group match. The top two per group "
+            "plus the eight best third-place teams reach the Round of 32. In each knockout tie the "
+            "model picks the more likely winner, and confidence is that team's share of the two "
+            "win chances. Projected scores come from the goal models."
         ),
     }
 

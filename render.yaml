@@ -9,7 +9,8 @@ services:
       --matches data/raw/international_results.csv
       --squads data/sample/squads.csv
       --qualified-teams data/sample/qualified_teams.csv
-      --model-out artifacts/model.joblib
+      --model-out artifacts/model.joblib &&
+      python -c "from wc26_predictor.api.main import tournament_payload, _all_match_reports; tournament_payload(); _all_match_reports(); print('caches prebuilt')"
     startCommand: uvicorn wc26_predictor.api.main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /health
     envVars:

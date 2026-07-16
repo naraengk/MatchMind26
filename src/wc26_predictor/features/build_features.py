@@ -299,8 +299,8 @@ def build_training_frame(
         }
         rows.append(row)
 
-        # Now that the row is saved, fold this match's result into the running
-        # stats so the *next* game sees it. Doing this last is what avoids leakage.
+        # Update the running stats AFTER saving the row, so the current match's
+        # own result never leaks into its own features.
         recent_points[home_team].append(_points_for(match.home_score, match.away_score))
         recent_points[away_team].append(_points_for(match.away_score, match.home_score))
         recent_goal_diff[home_team].append(match.home_score - match.away_score)

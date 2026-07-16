@@ -1,5 +1,3 @@
-# Looks up a team's FIFA ranking points as they were on a given date, so a match
-# never sees a ranking from the future. Used to build the ranking-gap feature.
 from __future__ import annotations
 
 import unicodedata
