@@ -6,10 +6,10 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 *.egg-info/
-artifacts/
+artifacts/*
+!artifacts/model.joblib
 data/raw/*
 !data/raw/international_results.csv
 data/processed/*
-*.joblib
 *.pyc
 .DS_Store

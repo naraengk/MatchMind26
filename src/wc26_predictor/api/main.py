@@ -1244,31 +1244,44 @@ def match_report(fixture_id: int) -> dict[str, Any]:
 
 
 MATCH_REPORTS_CACHE_PATH = PROJECT_ROOT / "artifacts" / "match_reports_cache.json"
+_match_reports_lock = threading.Lock()
+
+
+def _model_fingerprint() -> str:
+    # A stamp of the model file's identity, recorded inside each cache instead of
+    # compared to the cache file's own mtime. Comparing two separate files' mtimes
+    # is fragile across a container rebuild (image layers can normalize or reorder
+    # timestamps), so we bake the model's stat into the cache content itself.
+    if not MODEL_PATH.exists():
+        return ""
+    stat = MODEL_PATH.stat()
+    return f"{stat.st_mtime_ns}:{stat.st_size}"
 
 
 @lru_cache(maxsize=1)
 def _all_match_reports() -> dict[int, dict[str, Any]]:
     # Build every match report once and cache to disk. There are only 72 fixtures
-    # so this is cheap upfront and makes each request effectively instant.
-    cache_fresh = (
-        MATCH_REPORTS_CACHE_PATH.exists()
-        and MODEL_PATH.exists()
-        and MATCH_REPORTS_CACHE_PATH.stat().st_mtime >= MODEL_PATH.stat().st_mtime
-    )
-    if cache_fresh:
+    # so this is cheap upfront and makes each request effectively instant. The lock
+    # means a slow first request can't race the startup warm-up into rebuilding twice.
+    with _match_reports_lock:
+        fingerprint = _model_fingerprint()
+        if MATCH_REPORTS_CACHE_PATH.exists():
+            try:
+                raw = json.loads(MATCH_REPORTS_CACHE_PATH.read_text())
+                if raw.get("fingerprint") == fingerprint:
+                    return {int(k): v for k, v in raw["reports"].items()}
+            except (json.JSONDecodeError, OSError, KeyError):
+                pass
+        ctx = get_context_or_500()
+        reports = {int(fid): _build_match_report(int(fid), ctx) for fid in ctx["fixtures"]["fixture_id"]}
         try:
-            raw = json.loads(MATCH_REPORTS_CACHE_PATH.read_text())
-            return {int(k): v for k, v in raw.items()}
-        except (json.JSONDecodeError, OSError):
+            MATCH_REPORTS_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+            MATCH_REPORTS_CACHE_PATH.write_text(
+                json.dumps({"fingerprint": fingerprint, "reports": {str(k): v for k, v in reports.items()}})
+            )
+        except OSError:
             pass
-    ctx = get_context_or_500()
-    reports = {int(fid): _build_match_report(int(fid), ctx) for fid in ctx["fixtures"]["fixture_id"]}
-    try:
-        MATCH_REPORTS_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
-        MATCH_REPORTS_CACHE_PATH.write_text(json.dumps({str(k): v for k, v in reports.items()}))
-    except OSError:
-        pass
-    return reports
+        return reports
 
 
 def _build_match_report(fixture_id: int, ctx: dict[str, Any]) -> dict[str, Any]:
@@ -1336,30 +1349,31 @@ def _build_match_report(fixture_id: int, ctx: dict[str, Any]) -> dict[str, Any]:
 
 
 TOURNAMENT_CACHE_PATH = PROJECT_ROOT / "artifacts" / "tournament_cache.json"
+_tournament_lock = threading.Lock()
 
 
 @lru_cache(maxsize=1)
 def tournament_payload() -> dict[str, Any]:
     # The 10,000-run simulation takes several seconds, so we cache the result to
-    # disk. On a cold container start, the prebuilt cache loads in milliseconds
-    # instead of recomputing. The cache is invalidated when the model is newer.
-    cache_fresh = (
-        TOURNAMENT_CACHE_PATH.exists()
-        and MODEL_PATH.exists()
-        and TOURNAMENT_CACHE_PATH.stat().st_mtime >= MODEL_PATH.stat().st_mtime
-    )
-    if cache_fresh:
+    # disk, fingerprinted to the model that produced it (see _model_fingerprint).
+    # The lock means a slow first request can't race the startup warm-up into
+    # rebuilding twice.
+    with _tournament_lock:
+        fingerprint = _model_fingerprint()
+        if TOURNAMENT_CACHE_PATH.exists():
+            try:
+                raw = json.loads(TOURNAMENT_CACHE_PATH.read_text())
+                if raw.get("fingerprint") == fingerprint:
+                    return raw["payload"]
+            except (json.JSONDecodeError, OSError, KeyError):
+                pass
+        payload = _build_tournament_payload()
         try:
-            return json.loads(TOURNAMENT_CACHE_PATH.read_text())
-        except (json.JSONDecodeError, OSError):
+            TOURNAMENT_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+            TOURNAMENT_CACHE_PATH.write_text(json.dumps({"fingerprint": fingerprint, "payload": payload}))
+        except OSError:
             pass
-    payload = _build_tournament_payload()
-    try:
-        TOURNAMENT_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
-        TOURNAMENT_CACHE_PATH.write_text(json.dumps(payload))
-    except OSError:
-        pass
-    return payload
+        return payload
 
 
 def _build_tournament_payload() -> dict[str, Any]:

@@ -194,7 +194,7 @@ It is a normal Python web app, so it runs on anything that hosts long-running Py
 
 ### Render
 
-The `render.yaml` file does the whole build: install the dependencies, train the model from the included data, pre-build the tournament and match-report caches so the site loads instantly on a cold start, then start the server. The trained model is not committed because it is rebuilt on deploy.
+The `render.yaml` file does the whole build: install the dependencies, pre-build the tournament and match-report caches so the site loads instantly on a cold start, then start the server. The trained model (`artifacts/model.joblib`) is committed to the repo, so the deployed site always uses the exact same model that produced the test results below, not a freshly retrained one. After retraining locally, commit the updated `artifacts/model.joblib` to ship the new model.
 
 Live: [https://matchmind26.onrender.com](https://matchmind26.onrender.com)
 
