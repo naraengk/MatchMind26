@@ -35,9 +35,8 @@ The site has three pages: a welcome overview, the group-stage match reports, and
 
 ```text
 worldcup26-predictor/
-  artifacts/            trained model file (built locally or on deploy)
+  artifacts/            trained model, built locally and committed
   assets/
-    screenshots/        images used in this README
     site_icon.png       site icon
   data/
     sample/             the datasets the app and tests use
