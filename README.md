@@ -12,18 +12,6 @@ It runs as a small website (built with FastAPI) where you can pick any group-sta
 
 The site has three pages: a welcome overview, the group-stage match reports, and the knockout projection. They all use the same model and data.
 
-**Welcome page**
-
-![Welcome dashboard](assets/screenshots/welcome-dashboard.jpg)
-
-**Group-stage match report**, pick a fixture and see the prediction, both teams, and the reasoning behind it.
-
-![Group-stage match report](assets/screenshots/group-match-report.jpg)
-
-**Knockout projection**, the full tournament simulated 10,000 times, with each team's odds.
-
-![Monte Carlo tournament simulation](assets/screenshots/tournament-simulation.jpg)
-
 ## What it does
 
 - Pick any of the 72 scheduled group-stage matches and get a win/draw/loss prediction with a projected score.
@@ -206,7 +194,7 @@ It is a normal Python web app, so it runs on anything that hosts long-running Py
 
 ### Render
 
-The `render.yaml` file does the whole build: install the dependencies, train the model from the included data, then start the server. The trained model is not committed because it is rebuilt on deploy.
+The `render.yaml` file does the whole build: install the dependencies, train the model from the included data, pre-build the tournament and match-report caches so the site loads instantly on a cold start, then start the server. The trained model is not committed because it is rebuilt on deploy.
 
 Live: [https://matchmind26.onrender.com](https://matchmind26.onrender.com)
 
